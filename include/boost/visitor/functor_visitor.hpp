@@ -18,7 +18,7 @@
 namespace boost {
 
 template<typename ...Lambdas>
-detail::variant::functor_visitor<Lambdas...> make_lambda_visitor(Lambdas && ...args) {return detail::variant::functor_visitor<Lambdas...>(detail::variant::forward<Lambdas>(args)...);}
+detail::variant::functor_visitor<Lambdas...> make_functor_visitor(Lambdas && ...args) {return detail::variant::functor_visitor<Lambdas...>(detail::variant::forward<Lambdas>(args)...);}
 
 
 template<typename Variant, typename ...Lambdas>
@@ -32,7 +32,7 @@ auto apply_lambdas(Variant & var, Lambdas ... lambdas) -> typename detail::varia
 ///explicit version
 
 template<typename ReturnType, typename ...Lambdas>
-detail::variant::functor_visitor_exp<ReturnType, Lambdas...> make_lambda_visitor(Lambdas && ...args) {return detail::variant::functor_visitor_exp<ReturnType, Lambdas...>(detail::variant::forward<Lambdas>(args)...);}
+detail::variant::functor_visitor_exp<ReturnType, Lambdas...> make_functor_visitor(Lambdas && ...args) {return detail::variant::functor_visitor_exp<ReturnType, Lambdas...>(detail::variant::forward<Lambdas>(args)...);}
 
 
 template<typename ReturnType, typename Variant, typename ...Lambdas>
