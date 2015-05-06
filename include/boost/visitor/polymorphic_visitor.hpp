@@ -8,6 +8,7 @@
 #ifndef BOOST_VISITOR_POLYMORPHIC_VISITOR_HPP_
 #define BOOST_VISITOR_POLYMORPHIC_VISITOR_HPP_
 
+#include <boost/visitor/detail/poly_visitor_impl.hpp>
 
 namespace boost
 {

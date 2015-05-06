@@ -119,7 +119,16 @@ struct poly_from_variant_t<Return, Variant>
 };
 
 
-}}}
+template<typename Return, typename Variant>
+using poly_from_variant = BOOST_DEDUCED_TYPENAME poly_from_variant_t<Return, Variant>::;
+
+}}
+
+template<typename Return, typename Variant>
+using polynomic_visitor_deduct = detail::visitor::poly_from_variant<Return, Variant>;
+
+
+}
 
 
 

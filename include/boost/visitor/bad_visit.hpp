@@ -14,6 +14,7 @@
 #define BOOST_VARIANT_BAD_VISIT_HPP
 
 #include <exception>
+#include <boost/config/suffix.hpp>
 
 namespace boost {
 

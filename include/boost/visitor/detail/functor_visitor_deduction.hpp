@@ -23,12 +23,12 @@ namespace detail { namespace variant {
 
 //cause i don't wanna include utility; doesn't really make sense, since i already use c++14
 template< class T >
-constexpr T&& forward( typename remove_reference<T>::type& t ) noexcept
+constexpr T&& forward( BOOST_DEDUCED_TYPENAME remove_reference<T>::type& t ) noexcept
 {
 	return static_cast<T&&>(t);
 }
 template< class T >
-constexpr T&& forward( typename remove_reference<T>::type&& t )noexcept
+constexpr T&& forward( BOOST_DEDUCED_TYPENAME remove_reference<T>::type&& t )noexcept
 {
 	return static_cast<T&&>(t);
 }
@@ -59,7 +59,7 @@ template<typename Lambda>
 struct functor_deduct_parameter
 {
 	//using types		  = typename functor_parameter_deduction<decltype(&Lambda::operator())>::types;
-	using return_type = typename functor_parameter_deduction<decltype(&Lambda::operator())>::return_type;
+	using return_type = BOOST_DEDUCED_TYPENAME functor_parameter_deduction<decltype(&Lambda::operator())>::return_type;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,7 +76,7 @@ class functor_visitor_helper<Lambda> : public Lambda
 {
 	using father = Lambda;
 public:
-	using return_type = typename functor_deduct_parameter<Lambda>::return_type;
+	using return_type = BOOST_DEDUCED_TYPENAME functor_deduct_parameter<Lambda>::return_type;
 	using father::operator();
 
 	template<typename L>
@@ -89,7 +89,7 @@ class functor_visitor_helper<Lambda, Args...> : public functor_visitor_helper<Ar
 	using father = Lambda;
 public:
 	using functor_visitor_helper<Args...>::operator();
-	using return_type = typename functor_deduct_parameter<Lambda>::return_type;
+	using return_type = BOOST_DEDUCED_TYPENAME functor_deduct_parameter<Lambda>::return_type;
 	using father::operator();
 
 	static_assert(boost::is_same<return_type, typename functor_visitor_helper<Args...>::return_type>::value, "return types must have the same type");
@@ -103,7 +103,7 @@ public:
 template<typename ...Args>
 struct functor_visitor : public functor_visitor_helper<Args...>, public boost::static_visitor<typename functor_visitor_helper<Args...>::return_type>
 {
-	using return_type = typename functor_visitor_helper<Args...>::return_type;
+	using return_type = BOOST_DEDUCED_TYPENAME functor_visitor_helper<Args...>::return_type;
 	using functor_visitor_helper<Args...>::operator();
 	functor_visitor(Args&&...args) : functor_visitor_helper<Args...>(forward<Args>(args)...) {};
 };
