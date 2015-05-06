@@ -19,7 +19,7 @@ struct polymorphic_visitor_impl {};
 
 
 template<typename Return, typename T, typename ... Args>
-struct polymorphic_visitor_impl<Return, T> : polymorphic_visitor_impl<Return, Args...>, operator_head<Return, T>
+struct polymorphic_visitor_impl<Return, T, Args...> : polymorphic_visitor_impl<Return, Args...>, operator_head<Return, T>
 {
 	using polymorphic_visitor_impl<Return, Args...>::operator();
 	using operator_head<Return, T>::operator();
@@ -37,9 +37,9 @@ template<typename Return, typename ...Args>
 class const_polymorphic_visitor_impl{};
 
 template<typename Return, typename T, typename ... Args>
-struct const_polymorphic_visitor_impl<Return, T> : const_polymorphic_visitor_impl<Return, Args...>, const_operator_head<Return, T>
+struct const_polymorphic_visitor_impl<Return, T, Args...> : const_polymorphic_visitor_impl<Return, Args...>, const_operator_head<Return, T>
 {
-	using polymorphic_visitor_impl<Return, Args...>::operator();
+	using const_polymorphic_visitor_impl<Return, Args...>::operator();
 	using operator_head<Return, T>::operator();
 };
 
