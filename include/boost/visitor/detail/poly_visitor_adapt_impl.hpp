@@ -44,8 +44,30 @@ struct polymorphic_visitor_adapt_impl<Visitor, Abstract, T> : operator_adapt_hea
 {
 	polymorphic_visitor_adapt_impl(const polymorphic_visitor_adapt_impl&) = default;
 	polymorphic_visitor_adapt_impl(Visitor& vis)
-			: operator_adapt_head<Visitor, end_abstract<Abstract>, T>(vis) {};
+			: operator_adapt_head<Visitor, end_abstract<Visitor, Abstract>, T>(vis) {};
 };
+
+
+template<typename Visitor, typename Abstract, typename ...Args>
+class const_polymorphic_visitor_adapt_impl{};
+
+template<typename Visitor, typename Abstract, typename T, typename ... Args>
+struct const_polymorphic_visitor_adapt_impl<Visitor, Abstract, T, Args...> : const_operator_adapt_head<Visitor, const_polymorphic_visitor_adapt_impl<Visitor, Abstract, Args...>, T>
+{
+	const_polymorphic_visitor_adapt_impl(const const_polymorphic_visitor_adapt_impl&) = default;
+	const_polymorphic_visitor_adapt_impl(Visitor& vis)
+			: const_operator_adapt_head<Visitor, const_polymorphic_visitor_adapt_impl<Visitor, Abstract, Args...>, T>(vis) {};
+};
+
+
+template<typename Visitor, typename Abstract, typename T>
+struct const_polymorphic_visitor_adapt_impl<Visitor, Abstract, T> : const_operator_adapt_head<Visitor, end_abstract<Visitor, Abstract>, T>
+{
+	const_polymorphic_visitor_adapt_impl(const const_polymorphic_visitor_adapt_impl&) = default;
+	const_polymorphic_visitor_adapt_impl(Visitor& vis)
+			: const_operator_adapt_head<Visitor, end_abstract<Visitor, Abstract>, T>(vis) {};
+};
+
 
 template<typename Visitor, typename Abstract>
 struct polymorphic_visitor_adapt_impl_start {};
@@ -56,34 +78,11 @@ struct polymorphic_visitor_adapt_impl_start<Visitor, polymorphic_visitor<Ret, Ar
 	using type = polymorphic_visitor_adapt_impl<Visitor, polymorphic_visitor<Ret, Args...>, Args...>;
 };
 
-template<typename Visitor, typename Abstract, typename ...Args>
-class const_polymorphic_visitor_adapt_impl{};
-
-template<typename Visitor, typename Abstract, typename T, typename ... Args>
-struct const_polymorphic_visitor_adapt_impl<Visitor, Abstract, T> : const_operator_adapt_head<Visitor, const_polymorphic_visitor_adapt_impl<Visitor, Args...>, T>
-{
-	const_polymorphic_visitor_adapt_impl(const const_polymorphic_visitor_adapt_impl&) = default;
-	const_polymorphic_visitor_adapt_impl(Visitor& vis)
-			: const_operator_adapt_head<Visitor, const_polymorphic_visitor_adapt_impl<Visitor, Args...>, T>(vis) {};
-};
-
-
-template<typename Visitor, typename Abstract, typename T>
-struct const_polymorphic_visitor_adapt_impl<Visitor, Abstract, T> : const_operator_adapt_head<Visitor, end_abstract<Visitor, Abstract>, T>
-{
-	const_polymorphic_visitor_adapt_impl(const const_polymorphic_visitor_adapt_impl&) = default;
-	const_polymorphic_visitor_adapt_impl(Visitor& vis)
-			: const_operator_adapt_head<Visitor, end_abstract<Abstract>, T>(vis) {};
-};
-
-
-template<typename Visitor, typename T>
-struct const_polymorphic_visitor_adapt_impl_start {};
 
 template<typename Visitor, typename Ret, typename ...Args>
-struct const_polymorphic_visitor_adapt_impl_start<Visitor, polymorphic_visitor<Ret, Args...>>
+struct polymorphic_visitor_adapt_impl_start<Visitor, const_polymorphic_visitor<Ret, Args...>>
 {
-	using type = const_polymorphic_visitor_adapt_impl<Visitor, polymorphic_visitor<Ret, Args...>, Args...>;
+	using type = const_polymorphic_visitor_adapt_impl<Visitor, const_polymorphic_visitor<Ret, Args...>, Args...>;
 };
 
 }}}

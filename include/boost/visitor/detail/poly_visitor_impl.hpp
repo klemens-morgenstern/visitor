@@ -40,14 +40,14 @@ template<typename Return, typename T, typename ... Args>
 struct const_polymorphic_visitor_impl<Return, T, Args...> : const_polymorphic_visitor_impl<Return, Args...>, const_operator_head<Return, T>
 {
 	using const_polymorphic_visitor_impl<Return, Args...>::operator();
-	using operator_head<Return, T>::operator();
+	using const_operator_head<Return, T>::operator();
 };
 
 
 template<typename Return, typename T>
 struct const_polymorphic_visitor_impl<Return, T> : const_operator_head<Return, T>
 {
-	using operator_head<Return, T>::operator();
+	using const_operator_head<Return, T>::operator();
 };
 
 }}}
