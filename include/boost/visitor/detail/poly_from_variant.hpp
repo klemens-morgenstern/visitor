@@ -12,12 +12,10 @@
 #include <boost/visitor/arg_tuple.hpp>
 #include <boost/config/select_compiler_config.hpp>
 #include <boost/config/suffix.hpp>
+#include <boost/variant.hpp>
 
 namespace boost
 {
-
-template<typename ...Args>
-class variant;
 
 namespace detail {
 namespace visitor {
@@ -27,7 +25,7 @@ template<typename T>
 struct deduce_for_poly { };
 
 template<typename ...Args>
-struct deduce_for_poly<variant<Args...>>
+struct deduce_for_poly<boost::variant<Args...>>
 {
 	using type = arg_tuple<arg_tuple<Args...>>;
 };
@@ -71,7 +69,6 @@ struct combine<Variable, arg_tuple<Args...>>
 	using type = BOOST_DEDUCED_TYPENAME combine_step<Variable, Args...>::type;
 };
 
-
 template<typename Variable, typename ...Args>
 struct multi_deduce_for_poly { };
 
@@ -98,7 +95,7 @@ template<typename Return, typename T>
 struct single_deduce_for_poly { };
 
 template<typename Return, typename ...Args>
-struct single_deduce_for_poly<Return, variant<Args...>>
+struct single_deduce_for_poly<Return, boost::variant<Args...>>
 {
 	using type = polymorphic_visitor<Return, Args...>;
 };
@@ -119,13 +116,14 @@ struct poly_from_variant_t<Return, Variant>
 };
 
 
-template<typename Return, typename Variant>
-using poly_from_variant = BOOST_DEDUCED_TYPENAME poly_from_variant_t<Return, Variant>::;
+
+template<typename Return, typename ... Variants>
+using poly_from_variant = BOOST_DEDUCED_TYPENAME poly_from_variant_t<Return, Variants...>::type;
 
 }}
 
-template<typename Return, typename Variant>
-using polynomic_visitor_deduct = detail::visitor::poly_from_variant<Return, Variant>;
+template<typename Return, typename ...Variants>
+using polynomic_visitor_deduction = detail::visitor::poly_from_variant<Return, Variants...>;
 
 
 }

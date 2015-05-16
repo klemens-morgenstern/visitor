@@ -22,6 +22,11 @@ test-suite visitor
     [ run functor_test1.cpp : : : <toolset>gcc:<cxxflags>-std=c++1y ]
     [ run functor_test2.cpp : : : <toolset>gcc:<cxxflags>-std=c++1y ]
     [ run functor_test3.cpp : : : <toolset>gcc:<cxxflags>-std=c++1y ]
-    [ run functor_test4.cpp : : : <toolset>gcc:<cxxflags>-std=c++1y ]   ; 
+    [ run functor_test4.cpp : : : <toolset>gcc:<cxxflags>-std=c++1y ]  
+    [ run poly_test1.cpp : : : <toolset>gcc:<cxxflags>-std=c++1y ]
+    [ run poly_test2.cpp : : : <toolset>gcc:<cxxflags>-std=c++1y ]
+    [ run poly_test3.cpp : : : <toolset>gcc:<cxxflags>-std=c++1y ]
+    [ run poly_test4.cpp : : : <toolset>gcc:<cxxflags>-std=c++1y ]
+     ; 
 
 
