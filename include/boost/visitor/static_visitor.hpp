@@ -13,6 +13,10 @@
 #ifndef BOOST_VISITOR_STATIC_VISITOR_HPP
 #define BOOST_VISITOR_STATIC_VISITOR_HPP
 
+#ifndef BOOST_VARIANT_STATIC_VISITOR_HPP //workaround because it may be already included by boost.variant
+#define BOOST_VARIANT_STATIC_VISITOR_HPP
+
+
 #include "boost/config.hpp"
 #include "boost/detail/workaround.hpp"
 
@@ -33,7 +37,7 @@ namespace boost {
 
 namespace detail {
 
-    struct is_static_visitor_tag { };
+	struct is_static_visitor_tag { };
 
     typedef void static_visitor_default_return;
 
@@ -94,3 +98,4 @@ BOOST_TT_AUX_BOOL_TRAIT_DEF1(
 #include "boost/type_traits/detail/bool_trait_undef.hpp"
 
 #endif // BOOST_VARIANT_STATIC_VISITOR_HPP
+#endif

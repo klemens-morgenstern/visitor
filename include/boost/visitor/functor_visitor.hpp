@@ -25,7 +25,7 @@ template<typename Variant, typename ...Lambdas>
 auto apply_lambdas(Variant & var, Lambdas ... lambdas) -> typename detail::variant::functor_visitor<Lambdas...>::return_type
 {
 	using Ret = typename detail::variant::functor_visitor<Lambdas...>::return_type;
-	auto vis = make_lambda_visitor(detail::variant::forward<Lambdas>(lambdas)...);
+	auto vis = make_functor_visitor(detail::variant::forward<Lambdas>(lambdas)...);
 	return Ret(apply_visitor(vis, var));//type
 };
 
@@ -39,7 +39,7 @@ template<typename ReturnType, typename Variant, typename ...Lambdas>
 auto apply_lambdas(Variant & var, Lambdas ... lambdas) -> ReturnType
 {
 //	using Ret = typename detail::variant::lambda_visitor<Lambdas...>::return_type;
-	auto vis = make_lambda_visitor<ReturnType>(detail::variant::forward<Lambdas>(lambdas)...);
+	auto vis = make_functor_visitor<ReturnType>(detail::variant::forward<Lambdas>(lambdas)...);
 	return ReturnType(apply_visitor(vis, var));//type
 };
 
