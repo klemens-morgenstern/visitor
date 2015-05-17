@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE section PUBLIC "-//Boost//DTD BoostBook XML V1.0//EN"
+  "http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
+<!--
+    Copyright 2015, Klemens Morgenstern
+
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+-->
+<section id="visitor.intro">
+  <title>Introduction</title>
+
+  <using-namespace name="boost"/>
+
+<section id="visitor.abstract">
+  <title>Abstract</title>
+
+<para>The <code>visitor</code> is a library providing solutions for
+implementing visitors as for exmaple used by boost.variant. The main idea is to 
+provide a simple template to adapt several functors (with different parameter types) 
+into one, which then selects the right on by the parameter type.
+
+<para>Notable features of <code><classname>boost::visitor</classname></code>
+include:</para>
+
+<itemizedlist>
+  <listitem>One line solution to construct a <code>static_visitor</code>.</listitem>
+  <listitem>An <code>apply_functors</code> function for all classes implementing an
+  	<code>apply_visitor</code> method.
+  <listitem>An polymorphic visitor interface.</listitem>
+  <listitem>Adaptation of a static visitor into a polymorphic visitor.</listitem>
+  <listitem>Polymorphic visitor deduction from a given <code>boost::variant</code>.</listitem>
+</itemizedlist>
+
+</section>
+
+<section id="visitor.motivation">
+  <title>Motivation</title>
+
+<section id="visitor.motivation.problem">
+  <title>Problem</title>
+
+<para>When using <code>boost::variant</code> the <code>static_visitor</code> pattern
+is to be preferred, because it is compile time checked. This solution is however more
+verbose then it needs to be, so a solution to use functions (mainly lambdas) is very useful.
+</para>
+
+<programlisting>//write the content of boost::variant&lt;int, double, std::string&gt; to a stream.
+struct visitor : boost::static_visitor&lt;&gt;
+{
+	std::ostream& ostr;
+	visitor(std::ostream& ostr) : ostr(ostr) {};
+	void operator()(int i) const { ostr &lt;&lt; i;}
+	void operator()(double d) const { ostr &lt;&lt; d;}
+	void operator()(std::string s) const { ostr &lt;&lt; s;}
+};
+void write( std::ostream& out, boost::variant&lt;int, double, std::string&gt; & var)
+{
+	visitor vis(out);
+	boost::apply_visitor(vis, vis);
+}
+
+//or the alternative using this library
+void write_l( std::ostrean& out, boost::variant&lt;int, double, std::string&gt; & var)
+{
+	boost::apply_functors&lt;void&gt;(
+		vis, 
+		[&out](auto value){ out &lt;&lt; value;}
+	);
+}</programlisting>
+</section>
+
+</section>
+
+</section>
+
+</section>
