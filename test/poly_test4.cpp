@@ -32,7 +32,7 @@
 #include <boost/visitor/polymorphic_visitor.hpp>
 #include <boost/visitor/arg_tuple.hpp>
 #include <boost/visitor/polymorphic_functor_visitor_adapt.hpp>
-#include <boost/visitor/adapt_variant.hpp>
+#include <boost/visitor/deduct_variant.hpp>
 
 #include <boost/variant/variant.hpp>
 
