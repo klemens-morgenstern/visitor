@@ -40,7 +40,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <sstream>
 
 
 void run()
@@ -86,18 +86,25 @@ void run()
    vc("C3PO"); BOOST_CHECK(s == "C3PO");
 */
 
-   typedef boost::polynomic_visitor_deduction<string, var, var, var> multi_vis;
+   typedef boost::variant<int, double> var_num;
+
+
+   typedef boost::polynomic_visitor_deduction<double, var_num, var_num> multi_vis;
 
    auto fv2 = boost::make_functor_visitor(
-		   [](string s1, string s2, string s3){return s1+s2+s3;},
-		   [](auto a1, auto a2, auto a3)
-		   {
-			   return to_string(a1) + to_string(a2) + to_string(a3);
-		   }
-
-		   );
+		   [](int s1, 	 int s2) 	-> double 	{return s1+s2;},
+		   [](double s1, int s2) 	 			{return s1-s2;},
+		   [](int s1, 	 double s2)  			{return s1/s2;},
+		   [](double s1, double s2)  			{return s1*s2;});
 
    auto ad2 = boost::adapt_polymorphic_visitor<multi_vis>(fv2);
+
+   multi_vis &mv = ad2;
+
+   BOOST_CHECK(mv(40, 2)  == 42.);
+   BOOST_CHECK(mv(10., 2) == 8.);
+   BOOST_CHECK(mv(40, 2.) == 20.);
+   BOOST_CHECK(mv(40., 2.)== 80.);
 
 }
 
