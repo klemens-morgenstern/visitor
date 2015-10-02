@@ -24,7 +24,7 @@ before_script:
   - sudo b2 headers
   - cd .. 
 script:
-  - b2 cxxflags="--coverage" linkflags="--coverage" include="./boost"
+  - b2 test cxxflags="--coverage" linkflags="--coverage" include="./boost"
 after_success:
   - git clone https://github.com/linux-test-project/lcov.git lcov
   - cd lcov 
