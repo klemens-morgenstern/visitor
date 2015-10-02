@@ -1,9 +1,12 @@
-/*
- * poly_visitor_impl.hpp
- *
- *  Created on: 06.05.2015
- *      Author: Klemens
- */
+//  Boost.Visitor
+//
+//  See http://www.boost.org for most recent version, including documentation.
+//
+//  Copyright Klemens Morgenstern, 2015.
+//
+//  Distributed under the Boost
+//  Software License, Version 1.0. (See accompanying file
+//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt).
 
 #ifndef BOOST_VISITOR_DETAIL_POLY_VISITOR_IMPL_HPP_
 #define BOOST_VISITOR_DETAIL_POLY_VISITOR_IMPL_HPP_

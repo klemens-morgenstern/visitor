@@ -5,9 +5,9 @@
 # Use, modification and distribution is subject to the Boost Software License,
 # Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 # http://www.boost.org/LICENSE_1_0.txt)
-#
+#visitor/
 
-project variant/doc ;
+project doc ;
 import boostbook : boostbook ;
 
 boostbook visitor-doc 
@@ -18,3 +18,4 @@ boostbook visitor-doc
         <format>pdf:<xsl:param>boost.url.prefix=http://www.boost.org/doc/libs/release/doc/html
     ;
 
+html vis : visitor-doc ;
