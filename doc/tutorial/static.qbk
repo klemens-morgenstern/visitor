@@ -1,31 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE library PUBLIC "-//Boost//DTD BoostBook XML V1.0//EN"
-  "http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
-<!--
+[/
     Copyright 2015, Klemens Morgenstern
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
--->
-<section id="visitor.tutorial.static">
-  <title>Static Visitors Usage</title>
+/]
 
-<using-namespace name="boost"/>
-<using-class name="boost::functor_visitor"/>
-
-<para>
 To construct a functor visitor just a call to the <code>boost::make_functor_visitor</code> is necessary,
 though the functors are required to be distinguishable by there parameter list.
-<programlisting>auto vis =  boost::make_functor_visitor(
+
+```
+auto vis =  boost::make_functor_visitor(
 	std::plus&lt;int&gt;(),
 	std::negate&lt;int&gt;());
 	
 int x = vis(20, 22); //x == 42
 int y = vis(12); //y == -12
 //the type of vis is <classname>boost::functor_visitor&lt;int, std::plus&lt;int&gt;, std::negate&lt;int&gt;&gt;</classname></programlisting>
-<para>In the above example the return type is deduced automatically, which requires the all functors to have
+```
+
+In the above example the return type is deduced automatically, which requires the all functors to have
 the same return type and to not be templated. If this is not possible, a return type can be given explicitly.
-<programlisting>struct add
+
+```
+struct add
 {
 	template&lt;typename T&gt;
 	T operator()(T i, T j) {return i+j;}
@@ -38,7 +35,7 @@ auto vis = boost::make_functor_visitor&lt;double&gt;(
 int x = vis(20, 22); //x == 42
 int y = vis(12.5); //y == -12
 int z = vis(23.1, 22.4); //z == 45.5 
-</programlisting>
+```
 This allows the usage of generic lambdas, since they are basically implemented as <code>add</code> in the given example.
-</para>
-</section>
+
+[endsect]

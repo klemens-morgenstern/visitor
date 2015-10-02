@@ -7,15 +7,22 @@
 # http://www.boost.org/LICENSE_1_0.txt)
 #visitor/
 
-project doc ;
+project vis ;
+
+
+using quickbook ;
+using boostbook ;
+using doxygen ;
+using xsltproc ;
+
 import boostbook : boostbook ;
+
 
 boostbook visitor-doc 
     : 
-    visitor.xml 
+    visitor.qbk 
     :
-        <xsl:param>boost.root=../../../..
-        <format>pdf:<xsl:param>boost.url.prefix=http://www.boost.org/doc/libs/release/doc/html
-    ;
+        <xsl:param>boost.root=http://www.boost.org/doc/libs/1_56_0
+        <xml:param>html.stylesheet=../../../../doc/src/boostbook.css    ;
 
 html vis : visitor-doc ;

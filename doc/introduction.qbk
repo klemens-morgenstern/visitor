@@ -1,20 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE section PUBLIC "-//Boost//DTD BoostBook XML V1.0//EN"
-  "http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
-<!--
+[/
     Copyright 2015, Klemens Morgenstern
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
--->
-<section id="visitor.intro">
-  <title>Introduction</title>
 
-  <using-namespace name="boost"/>
+/]
+[section:introduction Introduction]
 
-<section id="visitor.abstract">
-  <title>Abstract</title>
-
+[section:abstract Abstract ]
+  
 <para>The <code>visitor</code> is a library providing solutions for
 implementing visitors as for exmaple used by boost.variant. The main idea is to 
 provide a simple template to adapt several functors (with different parameter types) 

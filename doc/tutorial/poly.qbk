@@ -1,0 +1,86 @@
+[/
+	Copyright 2015, Klemens Morgenstern
+
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+/]
+
+
+
+The `static_visitor` is resolved at compile time. It may however
+be necessary to implement a run-time resolved visitor. Therefore a class template is provided,
+`boost::polymorphic_visitor`. This class provides nothing more than an abstract interface
+and is declared straight-forward:
+
+```
+typedef polymorphic_visitor&lt;void, int, double&gt; poly_vis;
+```
+ 
+This declaration provides a polymorphic visitor, which has two operators, 
+one for `int` and one for `double`, which return `void`.
+
+If more then one argument shall be used by one operator, they must be put into the
+given template `boost::arg_tuple`.
+
+```
+typedef polymorphic_visitor&lt;int, arg_tuple&lt;int, int &gt;arg_tuple&lt;double, double&gt;&gt;; 
+```
+
+This declares a visitor, which either takes two `int` or two `double`.
+[endsect]
+
+[section:tutorial.poly_adapt Polymorhpic Visitor Adaptation]
+
+The example given above only declares interfaces, which can be overloaded by hand.
+The library does however provide a solution to adapt a static visitor into a polymorphic one.
+
+```
+auto vis = make_functor_visitor(
+	std::add&lt;int&gt;(),
+	std::negate&lt;int&gt;());
+
+typedef polymorphic_visitor&lt;int, arg_tuple&lt;int, int&gt;&gt; poly_vis;	
+
+auto adapted = adapt_polymorphic_visitor&lt;poly_vis&gt;(vis);
+/* the type of adapted is polymorphic_visitor_adapt&ltdecltype(vis), poly_vis&gt;
+ * which of course inhertis poly_vis.
+ * /
+```
+This way a `static_visitor` can be passed as an polymorphic visitor very easily.
+The `static_visitor` is hold by reference inside the adaptation structure. 	
+
+[endsect] 
+
+[section:tutorial.poly_deduct Polymorhpic Visitor Deduction]
+
+It is also possible to deduce such an interface from a variant. 
+This is done via the template `polynomic_visitor_deduction`. 
+It needs the return type as the first parameters.
+
+```
+typedef variant&lt;int, double&gt; var;
+typedef polynomic_visitor_deduction&lt;double, var&gt; vis_if;
+//vis_if type is polymorphic_visitor&lt;int, doble&gt;;
+```
+
+Since `boost::variant` allows multivisitation, the necessary visitors can also be deduced, 
+by passing several variants.
+
+```
+typedef variant&lt;int,    double&gt; var1;
+typedef variant&lt;string, int&gt; var2;
+typedef polynomic_visitor_deduction&lt;double, var1, var2&gt; vis_if;
+/*vis_if type is polymorphic_visitor&lt;
+	arg_tuple&lt;int, double&gt;,
+	arg_tuple&lt;int, string&gt;,
+	arg_tuple&lt;double, double&gt;,
+	arg_tuple&lt;double, string&gt;,
+	&gt;;
+```
+
+[endsect]
+
+
+
+
+
