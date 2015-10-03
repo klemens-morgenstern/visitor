@@ -10,6 +10,10 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+#ifndef BOOST_VISITOR_BAD_VISIT_HPP
+#define BOOST_VISITOR_BAD_VISIT_HPP
+
+//workaround, because it's also in boost.variant.
 #ifndef BOOST_VARIANT_BAD_VISIT_HPP
 #define BOOST_VARIANT_BAD_VISIT_HPP
 

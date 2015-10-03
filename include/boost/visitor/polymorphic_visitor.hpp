@@ -23,6 +23,7 @@ template<typename Return, typename ...Args>
 struct polymorphic_visitor : static_visitor<Return>, detail::visitor::polymorphic_visitor_impl<Return, Args...>
 {
 	using detail::visitor::polymorphic_visitor_impl<Return, Args...>::operator();
+	virtual ~polymorphic_visitor() = default;
 };
 
 //i dislike using "static_visitor" but this is needed for boost::variant. maybe this can be changed to a general declaration.
@@ -30,6 +31,7 @@ template<typename Return, typename ...Args>
 struct const_polymorphic_visitor : static_visitor<Return>, detail::visitor::const_polymorphic_visitor_impl<Return, Args...>
 {
 	using detail::visitor::const_polymorphic_visitor_impl<Return, Args...>::operator();
+	virtual ~const_polymorphic_visitor() = default;
 };
 
 }

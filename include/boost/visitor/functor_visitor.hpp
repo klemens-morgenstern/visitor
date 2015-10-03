@@ -17,28 +17,28 @@
 namespace boost {
 
 template<typename ...Lambdas>
-detail::variant::functor_visitor<Lambdas...> make_functor_visitor(Lambdas && ...args) {return detail::variant::functor_visitor<Lambdas...>(detail::variant::forward<Lambdas>(args)...);}
+detail::visitor::functor_visitor<Lambdas...> make_functor_visitor(Lambdas && ...args) {return detail::visitor::functor_visitor<Lambdas...>(detail::visitor::forward<Lambdas>(args)...);}
 
 
 template<typename Variant, typename ...Lambdas>
-auto apply_lambdas(Variant & var, Lambdas ... lambdas) -> typename detail::variant::functor_visitor<Lambdas...>::return_type
+auto apply_lambdas(Variant & var, Lambdas ... lambdas) -> typename detail::visitor::functor_visitor<Lambdas...>::return_type
 {
-	using Ret = typename detail::variant::functor_visitor<Lambdas...>::return_type;
-	auto vis = make_functor_visitor(detail::variant::forward<Lambdas>(lambdas)...);
+	using Ret = typename detail::visitor::functor_visitor<Lambdas...>::return_type;
+	auto vis = make_functor_visitor(detail::visitor::forward<Lambdas>(lambdas)...);
 	return Ret(apply_visitor(vis, var));//type
 };
 
 ///explicit version
 
 template<typename ReturnType, typename ...Lambdas>
-detail::variant::functor_visitor_exp<ReturnType, Lambdas...> make_functor_visitor(Lambdas && ...args) {return detail::variant::functor_visitor_exp<ReturnType, Lambdas...>(detail::variant::forward<Lambdas>(args)...);}
+detail::visitor::functor_visitor_exp<ReturnType, Lambdas...> make_functor_visitor(Lambdas && ...args) {return detail::visitor::functor_visitor_exp<ReturnType, Lambdas...>(detail::visitor::forward<Lambdas>(args)...);}
 
 
 template<typename ReturnType, typename Variant, typename ...Lambdas>
 auto apply_lambdas(Variant & var, Lambdas ... lambdas) -> ReturnType
 {
 //	using Ret = typename detail::variant::lambda_visitor<Lambdas...>::return_type;
-	auto vis = make_functor_visitor<ReturnType>(detail::variant::forward<Lambdas>(lambdas)...);
+	auto vis = make_functor_visitor<ReturnType>(detail::visitor::forward<Lambdas>(lambdas)...);
 	return ReturnType(apply_visitor(vis, var));//type
 };
 
