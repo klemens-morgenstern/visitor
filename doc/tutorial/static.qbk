@@ -5,17 +5,18 @@
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 /]
 
-To construct a functor visitor just a call to the <code>boost::make_functor_visitor</code> is necessary,
+[section:poly_vis Polynomic Visitor]
+To construct a functor visitor just a call to the `boost::make_functor_visitor` is necessary,
 though the functors are required to be distinguishable by there parameter list.
 
 ```
 auto vis =  boost::make_functor_visitor(
-	std::plus&lt;int&gt;(),
-	std::negate&lt;int&gt;());
+	std::plus<int>(),
+	std::negate<int>());
 	
 int x = vis(20, 22); //x == 42
 int y = vis(12); //y == -12
-//the type of vis is <classname>boost::functor_visitor&lt;int, std::plus&lt;int&gt;, std::negate&lt;int&gt;&gt;</classname></programlisting>
+//the type of vis is <classname>boost::functor_visitor<int, std::plus<int>, std::negate<int>>
 ```
 
 In the above example the return type is deduced automatically, which requires the all functors to have
@@ -24,13 +25,13 @@ the same return type and to not be templated. If this is not possible, a return 
 ```
 struct add
 {
-	template&lt;typename T&gt;
+	template<typename T>
 	T operator()(T i, T j) {return i+j;}
 };
 
-auto vis = boost::make_functor_visitor&lt;double&gt;(
+auto vis = boost::make_functor_visitor<double>(
 	add(),
-	std::negate&lt;int&gt;());
+	std::negate<int>());
 
 int x = vis(20, 22); //x == 42
 int y = vis(12.5); //y == -12

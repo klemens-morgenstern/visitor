@@ -17,45 +17,44 @@ into one, which then selects the right on by the parameter type.
 Notable features of `boost::visitor` include:
 
 
-   - One line solution to construct a <code>static_visitor</code>. 
-   - An <code>apply_functors</code> function for all classes implementing an
-  	<code>apply_visitor</code> method.
+   - One line solution to construct a static_visitor. 
+   - An apply_functors function for all classes implementing an apply_visitor method.
    - An polymorphic visitor interface. 
    - Adaptation of a static visitor into a polymorphic visitor. 
-   - Polymorphic visitor deduction from a given <code>boost::variant</code>. 
+   - Polymorphic visitor deduction from a given boost::variant. 
 
 
-[section:visitor.motivation Motivation ]
+[section:visitor_motivation Motivation ]
 
 [section:visitor_motivation_problem Problem ]
 
-When using <code>boost::variant</code> the <code>static_visitor</code> pattern
+When using boost::variant the static_visitor pattern
 is to be preferred, because it is compile time checked. This solution is however more
 verbose then it needs to be, so a solution to use functions (mainly lambdas) is very useful.
 
 
 ```
-//write the content of boost::variant&lt;int, double, std::string&gt; to a stream.
-struct visitor : boost::static_visitor&lt;&gt;
+//write the content of boost::variant<int, double, std::string> to a stream.
+struct visitor : boost::static_visitor<>
 {
 	std::ostream& ostr;
 	visitor(std::ostream& ostr) : ostr(ostr) {};
-	void operator()(int i) const { ostr &lt;&lt; i;}
-	void operator()(double d) const { ostr &lt;&lt; d;}
-	void operator()(std::string s) const { ostr &lt;&lt; s;}
+	void operator()(int i) const { ostr << i;}
+	void operator()(double d) const { ostr << d;}
+	void operator()(std::string s) const { ostr << s;}
 };
-void write( std::ostream& out, boost::variant&lt;int, double, std::string&gt; & var)
+void write( std::ostream& out, boost::variant<int, double, std::string> & var)
 {
 	visitor vis(out);
 	boost::apply_visitor(vis, vis);
 }
 
 //or the alternative using this library
-void write_l( std::ostrean& out, boost::variant&lt;int, double, std::string&gt; & var)
+void write_l( std::ostrean& out, boost::variant<int, double, std::string> & var)
 {
-	boost::apply_functors&lt;void&gt;(
+	boost::apply_functors<void>(
 		vis, 
-		[&out](auto value){ out &lt;&lt; value;}
+		[&out](auto value){ out << value;}
 	);
 }
 ```
