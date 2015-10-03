@@ -19,7 +19,7 @@
 #include <boost/type_traits/integral_constant.hpp>
 
 namespace boost {
-namespace detail { namespace variant {
+namespace detail { namespace visitor {
 
 //cause i don't wanna include utility; doesn't really make sense, since i already use c++14
 template< class T >

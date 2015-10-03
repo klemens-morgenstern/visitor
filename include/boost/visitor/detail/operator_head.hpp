@@ -21,28 +21,24 @@ template<typename Return, typename T>
 struct operator_head
 {
 	virtual Return operator()(T)  = 0;
-	virtual ~operator_head() = default;
 };
 
 template<typename Return, typename ...Args>
 struct operator_head<Return, arg_tuple<Args...>>
 {
 	virtual Return operator()(Args...) = 0;
-	virtual ~operator_head()  = default;
 };
 
 template<typename Return, typename T>
 struct const_operator_head
 {
 	virtual Return operator()(T) const = 0;
-	virtual ~const_operator_head() = default;
 };
 
 template<typename Return, typename ...Args>
 struct const_operator_head<Return, arg_tuple<Args...>>
 {
 	virtual Return operator()(Args...) const = 0;
-	virtual ~const_operator_head()  = default;
 };
 
 

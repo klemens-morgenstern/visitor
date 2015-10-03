@@ -19,9 +19,9 @@ namespace boost
 
 template<typename Interface, typename ...Lambdas>
 auto make_polymorphic_functor_visitor(Lambdas && ...args)
-	-> polymorphic_visitor_adapt<detail::variant::functor_visitor<Lambdas...>, Interface>
+	-> polymorphic_visitor_adapt<detail::visitor::functor_visitor<Lambdas...>, Interface>
 {
-	auto vis = make_functor_visitor(detail::variant::forward<Lambdas>(args)...);
+	auto vis = make_functor_visitor(detail::visitor::forward<Lambdas>(args)...);
 	return adapt_polymorphic_visitor<Interface>(vis);
 }
 
