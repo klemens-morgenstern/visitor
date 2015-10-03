@@ -29,7 +29,7 @@ typedef polymorphic_visitor&lt;int, arg_tuple&lt;int, int &gt;arg_tuple&lt;doubl
 This declares a visitor, which either takes two `int` or two `double`.
 [endsect]
 
-[section:tutorial.poly_adapt Polymorhpic Visitor Adaptation]
+[section:tutorial_poly_adapt Polymorhpic Visitor Adaptation]
 
 The example given above only declares interfaces, which can be overloaded by hand.
 The library does however provide a solution to adapt a static visitor into a polymorphic one.
@@ -51,7 +51,7 @@ The `static_visitor` is hold by reference inside the adaptation structure.
 
 [endsect] 
 
-[section:tutorial.poly_deduct Polymorhpic Visitor Deduction]
+[section:tutorial_poly_deduct Polymorhpic Visitor Deduction]
 
 It is also possible to deduce such an interface from a variant. 
 This is done via the template `polynomic_visitor_deduction`. 
