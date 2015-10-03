@@ -22,7 +22,7 @@ template<typename Visitor, typename Abstract>
 struct end_abstract : Abstract
 {
 	Visitor &vis;
-	end_abstract(Visitor vis) : vis(vis) {};
+	end_abstract(Visitor &vis) : vis(vis) {};
 	end_abstract(const end_abstract&) = default;
 
 };
