@@ -1,0 +1,20 @@
+[/
+    Copyright 2015 Klemens D. Morgenstern
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+/]
+
+[library Boost.Visitor
+    [quickbook 1.5]
+    [authors [Morgenstern, Klemens]]
+    [copyright 2015 Klemens Morgenstern]
+    [license
+        Distributed under the Boost Software License, Version 1.0.
+        (See accompanying file LICENSE_1_0.txt or copy at
+        http://www.boost.org/LICENSE_1_0.txt)
+    ]
+]
+
+[include introduction.qbk]
+[include tutorial/tutorial.qbk]
+

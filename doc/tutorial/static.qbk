@@ -1,0 +1,42 @@
+[/
+    Copyright 2015, Klemens Morgenstern
+
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+/]
+
+[section:poly_vis Polynomic Visitor]
+To construct a functor visitor just a call to the `boost::make_functor_visitor` is necessary,
+though the functors are required to be distinguishable by there parameter list.
+
+```
+auto vis =  boost::make_functor_visitor(
+	std::plus<int>(),
+	std::negate<int>());
+	
+int x = vis(20, 22); //x == 42
+int y = vis(12); //y == -12
+//the type of vis is <classname>boost::functor_visitor<int, std::plus<int>, std::negate<int>>
+```
+
+In the above example the return type is deduced automatically, which requires the all functors to have
+the same return type and to not be templated. If this is not possible, a return type can be given explicitly.
+
+```
+struct add
+{
+	template<typename T>
+	T operator()(T i, T j) {return i+j;}
+};
+
+auto vis = boost::make_functor_visitor<double>(
+	add(),
+	std::negate<int>());
+
+int x = vis(20, 22); //x == 42
+int y = vis(12.5); //y == -12
+int z = vis(23.1, 22.4); //z == 45.5 
+```
+This allows the usage of generic lambdas, since they are basically implemented as <code>add</code> in the given example.
+
+[endsect]

@@ -1,5 +1,4 @@
-//  Boost.Varaint
-//  Multivisitors defined here
+//  Boost.Visitor
 //
 //  See http://www.boost.org for most recent version, including documentation.
 //
