@@ -35,6 +35,6 @@ after_success:
   - find test/bin/ -name "*.gcno" -exec cp "{}" coverals/ \;
   - sudo apt-get install -qq python-yaml 
   - lcov --directory ./coverals --base-directory ./ --capture --output-file ./coverals/coverals.info 
-  - lcov --remove ./coverals/coverals.info "/usr*"  "./bin*" "./lcov*" "./boost*" -o coverals/coverals.info
+  - lcov --remove ./coverals/coverals.info "/usr*"  "./bin*" "./lcov*" "./boost/boost*" -o coverals/coverals.info
   - gem install coveralls-lcov
   - coveralls-lcov coverals/coverals.info
