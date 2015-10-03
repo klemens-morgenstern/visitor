@@ -15,6 +15,13 @@
 namespace boost
 {
 
+
+/** A tuple of arguments.
+ * This is an empty tuple so no requirements apply to the parameters.
+ * It is used to create a multi-visitor.
+ * @tparam Args the types.
+ *
+ */
 template<typename ...Args>
 struct arg_tuple {};
 

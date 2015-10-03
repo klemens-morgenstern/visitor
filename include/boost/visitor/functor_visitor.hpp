@@ -16,10 +16,17 @@
 
 namespace boost {
 
+
+/**
+ * This functions creates a lambda visitor, where the return type is deduced from the first functor.
+ * @attention The first lambda can NOT be a generic lambda.
+ */
 template<typename ...Lambdas>
 detail::visitor::functor_visitor<Lambdas...> make_functor_visitor(Lambdas && ...args) {return detail::visitor::functor_visitor<Lambdas...>(detail::visitor::forward<Lambdas>(args)...);}
 
-
+/** This function constructs a functor-visitor and calls apply_visitor.
+ * @attention The first lambda can NOT be a generic lambda.
+ */
 template<typename Variant, typename ...Lambdas>
 auto apply_lambdas(Variant & var, Lambdas ... lambdas) -> typename detail::visitor::functor_visitor<Lambdas...>::return_type
 {
@@ -28,12 +35,19 @@ auto apply_lambdas(Variant & var, Lambdas ... lambdas) -> typename detail::visit
 	return Ret(apply_visitor(vis, var));//type
 };
 
-///explicit version
 
+/**
+ * This functions creates a lambda visitor, where the return type is deduced from the first functor.
+ * Unlike the automatic function, the return type can be explicitly passed as a template parameter.
+ * @attention The first lambda can NOT be a generic lambda.
+ */
 template<typename ReturnType, typename ...Lambdas>
 detail::visitor::functor_visitor_exp<ReturnType, Lambdas...> make_functor_visitor(Lambdas && ...args) {return detail::visitor::functor_visitor_exp<ReturnType, Lambdas...>(detail::visitor::forward<Lambdas>(args)...);}
 
-
+/** This function constructs a functor-visitor and calls apply_visitor.
+ * Unlike the automatic function, the return type can be explicitly passed as a template parameter.
+ * @attention The first lambda can NOT be a generic lambda.
+ */
 template<typename ReturnType, typename Variant, typename ...Lambdas>
 auto apply_lambdas(Variant & var, Lambdas ... lambdas) -> ReturnType
 {

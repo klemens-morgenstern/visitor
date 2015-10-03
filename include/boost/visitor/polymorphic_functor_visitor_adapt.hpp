@@ -16,7 +16,11 @@
 
 namespace boost
 {
-
+/** Constructs a polymorphic visitor from a given polymorphic visitor type and
+ * a set of functors.
+ * 	@tparam Interface The polymorphic visitor type.
+ * 	@param args The functors.
+ */
 template<typename Interface, typename ...Lambdas>
 auto make_polymorphic_functor_visitor(Lambdas && ...args)
 	-> polymorphic_visitor_adapt<detail::visitor::functor_visitor<Lambdas...>, Interface>

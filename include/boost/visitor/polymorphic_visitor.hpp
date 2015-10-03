@@ -18,6 +18,16 @@
 namespace boost
 {
 
+/** A polymorphic visitor is a class which defines an abstract polymorphic interface.
+ * This can then be implemented or created via adaptation.
+ *
+ * If the visitor shall accept more than one argument, the @ref arg_tuple can be used.
+ * @tparam Return the return type of the operations
+ * @tparam Args the arguments
+ *
+ */
+
+
 //i dislike using "static_visitor" but this is needed for boost::variant. maybe this can be changed to a general declaration.
 template<typename Return, typename ...Args>
 struct polymorphic_visitor : static_visitor<Return>, detail::visitor::polymorphic_visitor_impl<Return, Args...>
@@ -26,6 +36,14 @@ struct polymorphic_visitor : static_visitor<Return>, detail::visitor::polymorphi
 	virtual ~polymorphic_visitor() = default;
 };
 
+/** A polymorphic visitor is a class which defines an abstract polymorphic interface.
+ * This can then be implemented or created via adaptation.
+ * Unlike @ref polymorphic_visitor, this calls are implemented as const member function.
+ * If the visitor shall accept more than one argument, the @ref arg_tuple can be used.
+ * @tparam Return the return type of the operations
+ * @tparam Args the arguments
+ *
+ */
 //i dislike using "static_visitor" but this is needed for boost::variant. maybe this can be changed to a general declaration.
 template<typename Return, typename ...Args>
 struct const_polymorphic_visitor : static_visitor<Return>, detail::visitor::const_polymorphic_visitor_impl<Return, Args...>

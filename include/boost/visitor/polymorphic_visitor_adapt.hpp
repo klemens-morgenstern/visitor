@@ -17,6 +17,13 @@
 namespace boost
 {
 
+/**
+ *  Adapts a static visitor into a polymorphic visitor.
+ *
+ *  @tparam Visitor The static visitor.
+ *  @tparam Abstract the polymorphic visitor to adapt to.
+ */
+
 template<typename Visitor, typename Abstract>
 struct polymorphic_visitor_adapt : detail::visitor::polymorphic_visitor_adapt_impl_start<Visitor, Abstract>::type
 {
@@ -25,7 +32,12 @@ struct polymorphic_visitor_adapt : detail::visitor::polymorphic_visitor_adapt_im
 };
 
 
-
+/**
+ *  Adapts a static visitor into a polymorphic visitor.
+ *
+ *  @param vis The static visitor.
+ *  @tparam Interface the polymorphic visitor to adapt to.
+ */
 template<typename Interface, typename Visitor>
 polymorphic_visitor_adapt<Visitor, Interface> adapt_polymorphic_visitor(Visitor &vis)
 {
