@@ -13,3 +13,8 @@ Master branch:  | [![Build Status](https://travis-ci.org/klemens-morgenstern/vis
 **Tested on windows with gcc 5.1 and MSVC 15**
 
 Static analisis (Coverity): [![Coverity Scan Build Status](https://scan.coverity.com/projects/6555/badge.svg)](https://scan.coverity.com/projects/klemens-morgenstern-visitor)
+
+
+### Current Documentation
+
+[Documentation](http://klemens-morgenstern.github.io/visitor/)
