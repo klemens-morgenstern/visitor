@@ -12,7 +12,6 @@ import testing ;
 project 
     : requirements
         #<dependency>/boost/test//minimal
-        <include>F:/boost/include/boost-1_58
         <include>../include
         <toolset>msvc:<asynch-exceptions>on
     ;
